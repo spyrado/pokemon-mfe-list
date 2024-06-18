@@ -1,15 +1,9 @@
 const { shareAll, withModuleFederationPlugin } = require('@angular-architects/module-federation/webpack');
 
 module.exports = withModuleFederationPlugin({
-
-  name: 'pokemon-mfe-list',
-
+  name: 'pokemonMfeList',
   exposes: {
-    './Component': './src/app/app.component.ts',
+    './Module': './src/app/remote-entry/remote-entry.module.ts',
   },
-
-  shared: {
-    ...shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' }),
-  },
-
+  shared: shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' }),
 });
