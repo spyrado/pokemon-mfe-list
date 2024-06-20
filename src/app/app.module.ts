@@ -1,18 +1,15 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RemoteEntryModule } from './remote-entry/remote-entry.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule,
+    CommonModule,
     AppRoutingModule,
-    RemoteEntryModule
   ],
   providers: [],
   bootstrap: [AppComponent]
