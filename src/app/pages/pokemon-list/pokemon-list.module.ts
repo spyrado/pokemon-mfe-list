@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { PokemonListRoutingModule } from './pokemon-list-routing.module';
 import { PokemonListComponent } from './pokemon-list.component';
+import { PokemonCardModule } from 'src/app/shared/components/pokemon-card/pokemon-card.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { PokemonListComponent } from './pokemon-list.component';
   ],
   imports: [
     CommonModule,
-    PokemonListRoutingModule
+    PokemonListRoutingModule,
+    PokemonCardModule
   ]
 })
 export class PokemonListModule { }

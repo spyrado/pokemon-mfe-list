@@ -1,0 +1,17 @@
+.pokemon-card {
+  position: relative;
+  background: #FFFFFF;
+  box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  width: 104px;
+  height: 108px;
+
+  &__shadow {
+    position: absolute;
+    bottom: 0;
+    width: 104px;
+    height: 44px;
+    background: #EFEFEF;
+    border-radius: 7px;
+  }
+}
