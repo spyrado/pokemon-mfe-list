@@ -6,4 +6,20 @@
   border-radius: 8px;
   height: calc(100% - 120px);
   padding: 24px 12px 0 12px;
+
+  
+  &__list-wrapper {
+    
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &__button-actions {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 } 

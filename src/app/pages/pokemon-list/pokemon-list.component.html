@@ -1,3 +1,27 @@
 <section class="pokemon-list">
-  <app-pokemon-card></app-pokemon-card>
+  <div class="pokemon-list__list-wrapper">
+    <ng-container *ngIf="!!pokemons?.length">
+      <ng-container *ngFor="let pokemon of pokemonsToShow">
+        <app-pokemon-card [pokemonName]="pokemon.name" [pokemonNumber]="getPokemonNumber(pokemon)"></app-pokemon-card>
+      </ng-container>
+    </ng-container>
+  </div>
+  <div class="pokemon-list__button-actions">
+    <button 
+      type="button" 
+      class="btn btn-primary me-4"
+      [disabled]="currentPage === 1"
+      (click)="handlePrev()"
+    >
+      anterior
+    </button>
+    <button 
+      type="button" 
+      class="btn btn-primary"
+      [disabled]="maximumPagination"
+      (click)="handleNext()"
+    >
+      próximo
+    </button>
+  </div>
 </section>
