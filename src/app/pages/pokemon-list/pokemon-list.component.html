@@ -1,4 +1,4 @@
-<section class="pokemon-list">
+<section class="pokemon-list d-flex flex-column justify-content-between">
   <div class="pokemon-list__list-wrapper">
     <ng-container *ngIf="!!pokemons?.length">
       <ng-container *ngFor="let pokemon of pokemonsToShow">
@@ -6,7 +6,7 @@
       </ng-container>
     </ng-container>
   </div>
-  <div class="pokemon-list__button-actions">
+  <div class="pokemon-list__button-actions align-self-center mb-3">
     <button 
       type="button" 
       class="btn btn-primary me-4"

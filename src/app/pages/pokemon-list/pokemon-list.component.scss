@@ -1,12 +1,11 @@
 .pokemon-list {
-  margin: 4px; 
+  margin: 8px 4px 4px 4px; 
   background: #FFFFFF;
 
   box-shadow: inset 0px 1px 3px 1px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
-  height: calc(100% - 120px);
-  padding: 24px 12px 0 12px;
-
+  padding: 116px 12px 0 12px;
+  height: calc(100vh - 14px);
   
   &__list-wrapper {
     
@@ -17,9 +16,23 @@
   }
 
   &__button-actions {
-    position: absolute;
-    bottom: 16px;
-    left: 50%;
-    transform: translateX(-50%);
+    // position: absolute;
+    // bottom: 16px;
+    // left: 50%;
+    // transform: translateX(-50%);
+    // z-index: 30;
   }
 } 
+
+::ng-deep {
+  /* Estilos específicos para iOS */
+  @media screen and (max-device-width: 812px) {
+    body.ios .pokemon-list {
+      height: calc(100vh - 100px);
+    }
+
+    body.chrome-ios .pokemon-list {
+      height: calc(100vh - 126px) !important;
+    }
+  }
+}

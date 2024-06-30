@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { IPokemonListResponse, IPokemonListResult } from 'src/app/shared/interfaces';
 import { PokemonService } from 'src/app/shared/services/pokemon/pokemon.service';
+import { EventService } from 'shell/EventService';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -10,15 +10,26 @@ import { PokemonService } from 'src/app/shared/services/pokemon/pokemon.service'
 })
 export class PokemonListComponent implements OnInit {
   pokemonsToShow: IPokemonListResult[] = [];
-  itemsPerPage = 15;
+  itemsPerPage = 9;
   currentPage = 1;
   pokemons: IPokemonListResult[] = [];
   maximumPagination: boolean = false;
 
-  constructor(private _pokemonService: PokemonService) {}
+  constructor(
+    private _pokemonService: PokemonService,
+    private _eventService: EventService,
+  ) {}
 
   ngOnInit(): void {
     this.getAllPokemons();
+    this.listenForInputSearchChange();
+  }
+
+  listenForInputSearchChange() {
+    console.log("this._eventService: ", this._eventService)
+    this._eventService
+      .searchInputChange$
+      .subscribe(value => console.log(value))
   }
 
   private getAllPokemons() {
