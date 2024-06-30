@@ -15,6 +15,5 @@ module.exports = withModuleFederationPlugin({
     "@angular/router": { singleton: true, strictVersion: true, requiredVersion: deps["@angular/router"] },
     "@angular/common/http": { singleton: true, strictVersion: true, requiredVersion: deps["@angular/common/http"] },
     "bootstrap": { singleton: true, strictVersion: true, requiredVersion: deps["bootstrap"] },
-    'rxjs': { singleton: true, strictVersion: true, requiredVersion: '7.8.1' }
   }
 });

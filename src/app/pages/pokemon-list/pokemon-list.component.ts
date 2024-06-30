@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { IPokemonListResponse, IPokemonListResult } from 'src/app/shared/interfaces';
 import { PokemonService } from 'src/app/shared/services/pokemon/pokemon.service';
 import { EventService } from 'shell/EventService';
@@ -13,11 +13,12 @@ export class PokemonListComponent implements OnInit {
   itemsPerPage = 9;
   currentPage = 1;
   pokemons: IPokemonListResult[] = [];
+  pokemonsAuxiliar: IPokemonListResult[] = [];
   maximumPagination: boolean = false;
 
   constructor(
     private _pokemonService: PokemonService,
-    private _eventService: EventService,
+    @Inject('EVENT_SERVICE') private _eventService: EventService,
   ) {}
 
   ngOnInit(): void {
@@ -26,10 +27,16 @@ export class PokemonListComponent implements OnInit {
   }
 
   listenForInputSearchChange() {
-    console.log("this._eventService: ", this._eventService)
     this._eventService
       .searchInputChange$
-      .subscribe(value => console.log(value))
+      .subscribe(search => this.onSearchInputSuccess(search))
+  }
+
+  private onSearchInputSuccess(search: string): void {
+    this.pokemons = [...this.pokemonsAuxiliar.filter(pokemon => pokemon.name.includes(search))];
+    this.currentPage = 1;
+    this.handleMaxPagination();
+    this.displayItems(this.currentPage);
   }
 
   private getAllPokemons() {
@@ -39,6 +46,7 @@ export class PokemonListComponent implements OnInit {
   }
 
   private onSuccesGetAllPokemons(pokemonsResponse: IPokemonListResponse): void {
+    this.pokemonsAuxiliar = pokemonsResponse.results;
     this.pokemons = pokemonsResponse.results;
     this.displayItems(this.currentPage);
   }
@@ -57,25 +65,33 @@ export class PokemonListComponent implements OnInit {
     const endIndex = startIndex + this.itemsPerPage;
     const itemsToDisplay = this.pokemons.slice(startIndex, endIndex);
   
-    // const itemsContainer = document.getElementById('items');
-    // itemsContainer.innerHTML = itemsToDisplay.map(item => `<p>${item}</p>`).join('');
     this.pokemonsToShow = [...itemsToDisplay];
   }
   
   handleNext() {
-    const totalPages = Math.ceil(this.pokemons.length / this.itemsPerPage);
+    const totalPages = this.getTotalPages();
     if (this.currentPage < totalPages) {
-      this.currentPage++;
+      this.currentPage = this.currentPage + 1;
       this.maximumPagination = false;
       this.displayItems(this.currentPage);
     } 
 
-    if(this.currentPage === totalPages) {
+    this.handleMaxPagination();
+    
+  }
+
+  getTotalPages() {
+    const totalPages = Math.ceil(this.pokemons.length / this.itemsPerPage);
+    return totalPages;
+  }
+
+  handleMaxPagination() {
+    const totalPages = this.getTotalPages();
+    if(this.currentPage >= totalPages) {
       this.maximumPagination = true;
     } else {
       this.maximumPagination = false;
     }
-    
   }
   
   handlePrev() {
